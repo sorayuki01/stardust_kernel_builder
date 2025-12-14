@@ -117,8 +117,8 @@ jobs:
         CONFIG_NAME="tama_${{ matrix.codename }}_defconfig"
         KERNEL_COMMIT_ID=$(git rev-parse --short=7 HEAD)
         ZIP_NAME="${KERNEL_VER}_${{ matrix.codename }}-${KERNEL_VARIANT}-${KERNEL_COMMIT_ID}-$(date +%Y%m%d).zip"
+        echo "BUILD_DATE=$(date +%Y-%m-%d)" >> $GITHUB_ENV
         echo "KERNEL_COMMIT_ID=$KERNEL_COMMIT_ID" >> $GITHUB_ENV
-        echo "BUILD_DATE=$BUILD_DATE" >> $GITHUB_ENV
         echo "ZIP_NAME=$ZIP_NAME" >> $GITHUB_ENV
         echo "LOG_FILE=$LOG_FILE" >> $GITHUB_ENV
 
@@ -161,19 +161,17 @@ jobs:
         tag_name: ${{ env.KERNEL_VER }}_${{ env.KERNEL_VARIANT }}
         name: ${{ env.KERNEL_VER }} ${{ env.KERNEL_VARIANT }}
         body: |
-          ## Stardust Kernel — NON-KSU ##
-
           **Target Platform**
-          - Device Family  : Sony Tama
-          - SoC            : Qualcomm Snapdragon 845
-          - Architecture   : ARM64
-          - Android Version: A12-A15
-
+          - Device Family     : Sony Tama
+          - SoC               : Qualcomm Snapdragon 845
+          - Architecture      : ARM64
+          - Android Version   : A12–A15
+          
           **Build Information**
-          - Kernel Version : `${{ env.KERNEL_VER }}`
-          - Variant        : `${{ env.KERNEL_VARIANT }}`
-          - Build Date     : `${{ env.BUILD_DATE }}`
-          - Compiler       : Aosp Clang
+          - Kernel Version    : ${{ env.KERNEL_VER }}
+          - Variant           : ${{ env.KERNEL_VARIANT }}
+          - Build Date        : ${{ env.BUILD_DATE }}
+          - Compiler          : AOSP Clang
 
           **Flash Instructions**
           1. Flash via TWRP / OrangeFox
@@ -183,7 +181,6 @@ jobs:
           - This release contains NON-KSU builds only
           - You can use Apatch or Magisk for getting root acces
           - Each device codename has its own flashable zip
-          - Built automatically using GitHub Actions
 
         files: |
           ${{ env.KERNEL_DIR }}/${{ env.ZIP_NAME }}
