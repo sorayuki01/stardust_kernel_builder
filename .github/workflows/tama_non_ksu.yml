@@ -116,7 +116,7 @@ jobs:
         KERNEL_IMAGE=$KERNEL_IMAGE_DIR/Image.gz-dtb
         CONFIG_NAME="tama_${{ matrix.codename }}_defconfig"
         KERNEL_COMMIT_ID=$(git rev-parse --short=7 HEAD)
-        BUILD_DATE=$(date +%Y-%m-%d)"
+        BUILD_DATE=$(date +%Y-%m-%d)
         ZIP_NAME="${KERNEL_VER}_${{ matrix.codename }}-${KERNEL_VARIANT}-${BUILD_DATE}-${KERNEL_COMMIT_ID}.zip"
         echo "KERNEL_COMMIT_ID=$KERNEL_COMMIT_ID" >> $GITHUB_ENV
         echo "BUILD_DATE=$BUILD_DATE" >> $GITHUB_ENV
